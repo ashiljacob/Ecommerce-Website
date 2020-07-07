@@ -1,0 +1,39 @@
+{% extends 'store/main.html' %}
+{% load static %}
+<html>
+<head>
+	<title>Ecom</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+<head>
+<body>
+
+	
+
+	{% block content %}
+	
+	<div class='row'>
+		{% for product in products %}
+		<div class='col-lg-4'>
+			<img class = 'thumbnail' src="{{product.imageUrl}}">
+			<div class='box-element product'>
+				<h6> <strong>{{product.name}}</strong></h6>
+				<br>
+				<button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+				<a class="btn btn-outline-success" href="#">View</a>
+				<h4 style="display:inline-block;float:right;">${{product.price|floatformat:2}}</h4>
+			</div>
+
+		</div>
+		{% endfor %}
+		
+	</div>
+	
+	{% endblock content %}
+
+</body>
