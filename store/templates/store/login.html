@@ -1,0 +1,30 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='col-lg-6'>
+        <div class='box-element' id='form-wrapper'>
+            <form id="form" method="POST" action="{% url 'account_login' %}">
+                <div id="user-info">
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="name" placeholder="Name..">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="email" name="email" placeholder="Email..">
+                    </div>
+                </div>
+               
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Submit">
+            </form>
+        </div>
+        <br>
+
+         
+    </div>
+    
+    
+</div>
+{% endblock content %}

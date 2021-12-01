@@ -4,8 +4,59 @@ from django.http import JsonResponse
 import json
 import datetime
 from .utils import cartData,guestOrder
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
+
+def login(request):
+    logger.info("Inside Login")
+    if request.method == 'POST':
+        logger.info("Inside Login")
+        if User.objects.filter(username=request.POST['username'], password=request.POST['password']).exists():
+            user = User.objects.get(username=request.POST['username'], password=request.POST['password'])
+            # request.session['user'] = user.name
+
+            logger.info("user :"+user)
+            return render(request, 'store/store.html', {'user': user})
+
+        else:
+            return render(request, 'index.html')
+
+
+# Registration Page
+def registration(request):
+    return render(request, 'reg.html')
+
+
+# user Registration
+def registration_upload(request):
+    if request.method == 'POST':
+        if request.POST['password'] == request.POST['password1']:
+
+            reg = User(name=request.POST['name'], username=request.POST['username']
+                       , password=request.POST['password'])
+            reg.save()
+            return render(request, 'index.html')
+        else:
+            return HttpResponse("<script>alert('Password didnt match')</script>")
+            return redirect('/')
+    else:
+        return HttpResponse("<h1>Error While Registering.. TRy Again..</h1>")
+
+
+
+
+
+def logout(request):
+    if request.method == "POST":
+        act = Activity.objects.get(id=request.session['id'])
+        act.log_out = datetime.now()
+        act.save()
+        return render(request,'index.html')
+    else:
+        return HttpResponse("<h1>Error While LogOut..!!</h1>")
 
 def store(request):
     data = cartData(request)
